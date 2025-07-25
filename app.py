@@ -6,7 +6,7 @@ from datetime import datetime
 st.set_page_config(page_title="Hello Neighbor", page_icon="🫂", layout="centered")
 
 # --- LOGO & TITLE ---
-st.image("maybelogo.png", width=200)  # replace with your logo file name
+#st.image("maybelogo.png", width=200)  # replace with your logo file name
 st.title("Hello Neighbor 👋")
 st.write("A Community Skill‑Share Circle — Learn • Share • Connect")
 
