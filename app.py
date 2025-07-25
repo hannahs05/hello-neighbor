@@ -3,17 +3,17 @@ import pandas as pd
 from datetime import datetime
 
 # --- PAGE CONFIG ---
-st.set_page_config(page_title="Hello Neighbor", page_icon="👋", layout="centered")
+st.set_page_config(page_title="Hello Neighbor", page_icon="🫂", layout="centered")
 
 # --- LOGO & TITLE ---
-st.image("oriented.png", width=200)  # replace with your logo file name
+st.image("maybelogo.png", width=200)  # replace with your logo file name
 st.title("Hello Neighbor 👋")
 st.write("A Community Skill‑Share Circle — Learn • Share • Connect")
 
 st.markdown("---")
 
 # --- EVENT LIST ---
-st.header("📅 Upcoming Skill Share Sessions")
+st.header("Upcoming Skill Share Sessions 📅")
 
 # Load events from a CSV or create a starter DataFrame
 try:
