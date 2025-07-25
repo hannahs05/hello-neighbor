@@ -1,12 +1,20 @@
 import streamlit as st
 import pandas as pd
 from datetime import datetime
+import gspread
+from oauth2client.service_account import ServiceAccountCredentials
+
+# --- GOOGLE SHEETS SETUP ---
+scope = ["https://spreadsheets.google.com/feeds", "https://www.googleapis.com/auth/drive"]
+creds = ServiceAccountCredentials.from_json_keyfile_name("creds.json", scope)
+client = gspread.authorize(creds)
+sheet = client.open("HelloNeighborData")  # make sure this matches your Sheet name
 
 # --- PAGE CONFIG ---
 st.set_page_config(page_title="Hello Neighbor", page_icon="🫂", layout="centered")
 
 # --- LOGO & TITLE ---
-#st.image("maybelogo.png", width=200)  # replace with your logo file name
+# st.image("maybelogo.png", width=200)  # optional logo
 st.title("Hello Neighbor 👋")
 st.write("A Community Skill‑Share Circle — Learn • Share • Connect")
 
@@ -39,9 +47,8 @@ with st.form("teach_form"):
     skill = st.text_input("What skill could you teach?")
     submitted = st.form_submit_button("Submit")
     if submitted:
-        # Save to a CSV (append mode)
-        with open("teach_signups.csv", "a") as f:
-            f.write(f"{name},{email},{skill}\n")
+        teach_ws = sheet.worksheet("TeachSignups")
+        teach_ws.append_row([name, email, skill])
         st.success("Thank you! We'll reach out soon.")
 
 st.markdown("---")
@@ -53,6 +60,6 @@ with st.form("suggest_form"):
     suggestion = st.text_area("What skill would you like to learn?")
     sugg_submit = st.form_submit_button("Submit Suggestion")
     if sugg_submit:
-        with open("skill_suggestions.csv", "a") as f:
-            f.write(f"{sugg_name},{suggestion}\n")
+        sugg_ws = sheet.worksheet("SkillSuggestions")
+        sugg_ws.append_row([sugg_name, suggestion])
         st.success("Suggestion received! Thank you.")
